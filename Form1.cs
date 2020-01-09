@@ -15,11 +15,16 @@ namespace ElaborationMenu
 {
     public partial class Form1 : Form
     {
+        private BDD bd = new BDD();
         public Form1()
         {
             InitializeComponent();
 
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            dataGridView1.DataSource = bd.get_table_elaboration();
           
+            /*
             //Connection db
             Console.WriteLine("Start Connection DB");
             //---------------------------------------
@@ -45,7 +50,7 @@ namespace ElaborationMenu
             // Create a Command from Connection.
             OracleCommand cmd = conn.CreateCommand();
 
-            /*
+            
             // Affiche la table elaboration
             //--------------------------------------------------------------------------------
             // Set Command Text
@@ -200,6 +205,60 @@ namespace ElaborationMenu
             }
             //--------------------------------------------------------------------------------
             */
+        }
+
+        //se produit lors de l'ouverture de la form principale.
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dataGridView1.Rows[0].Selected = false;
+        }
+
+        //ajouter un enregistrement
+        private void Btn_ajout_donne_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //modifier un enregistrement selectionner
+        private void Btn_modifier_elaboration_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow.Selected)
+            {
+                int numElaboration = (int)dataGridView1.CurrentRow.Cells[0].Value;
+                string Designation = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                string Ville = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                FormModifier frmModifier = new FormModifier(numElaboration, Designation, Ville);
+                frmModifier.ShowDialog();
+                if(frmModifier.DialogResult == DialogResult.OK)
+                {
+                    dataGridView1.DataSource = bd.get_table_elaboration();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Aucune ligne selectionné", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        //supprimer un enregistrement selectionner
+        private void Btn_supprimer_elaboration_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow.Selected)
+            {
+                int NumeroElaboration = (int)dataGridView1.CurrentRow.Cells[0].Value;
+                bd.Supprimer_enregistrement_numElaboration(NumeroElaboration);
+                dataGridView1.DataSource = bd.get_table_elaboration();
+            }
+            else
+            {
+                MessageBox.Show("Aucune ligne selectionné","ERREUR",MessageBoxButtons.OK ,MessageBoxIcon.Error);
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            bd.Fermer_Bdd();
         }
     }
 }

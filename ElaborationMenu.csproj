@@ -92,16 +92,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BDD.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAjout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAjout.Designer.cs">
+      <DependentUpon>FormAjout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormModifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModifier.Designer.cs">
+      <DependentUpon>FormModifier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAjout.resx">
+      <DependentUpon>FormAjout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModifier.resx">
+      <DependentUpon>FormModifier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
